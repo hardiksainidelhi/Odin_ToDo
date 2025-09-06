@@ -4,31 +4,74 @@ import {Task} from './Models/task.js'
 import DOMStuff from './Models/DOMstuff.js'
 
 
-let a  = new Project('Sample Project','Hello world')
-let b = new Task('Make bed','make the bed','3 jan 2025',2)
-let c = new Task('Make bed2','make the bed','2 jan 2025',1)
-let d = new Task('Make bed2','make the bed','2 jan 2025',3)
-let e = new Task('Make bed3','make the bed','2 jan 2025',1)
+function createProject(projectName,description){
+    
+    let project = new Project(projectName,description)
+    let projectElemDOM = DOMStuff.createProjectListItem(project)
+    projectElemDOM.classList.add('project_list_elem')
+    
+    projectElemDOM.addEventListener('click',() => {  
+        DOMStuff.displayProject(project)
+    })
 
-a.addtask(b)
-a.addtask(c)
-a.addtask(d)
-a.addtask(e)
-
-let a2  = new Project('Toasties','Make toast')
-let b2 = new Task('Make Toast','make the bed','1 jan 2025',2)
-let c2 = new Task('Make Tost2','make the bed','2 jan 2025',1)
-a2.addtask(b2)
-a2.addtask(c2)
-
-DOMStuff.displayProject(a2)
-
-// setTimeout(()=>{
-//     console.log("Hello")
-//     DOMStuff.displayProject(a2)
-// },2000)
+    DOMStuff.PROJECT_LIST_DOM.appendChild(projectElemDOM)
+    return project
+}
 
 
-DOMStuff.displayProject(a)
 
-a.addtask(b)
+function initializaApp(){
+    DOMStuff.ADD_TASK_BUTTON.addEventListener("click",()=>{
+        DOMStuff.populateTaskModal(Project.PROJECT_LIST)
+        DOMStuff.displayTaskModal()
+    })
+
+    DOMStuff.SUBMIT_NEW_TASK_BUTTON.addEventListener('click',(e)=>{
+        e.preventDefault()
+        let taskDetails = DOMStuff.getTaskFormDetails()
+        let project = Project.getProjectById(taskDetails.project)
+        project.addTask(new Task(
+            taskDetails.title,
+            taskDetails.description,
+            taskDetails.dueDate,
+            parseInt(taskDetails.priority)
+        ))
+        DOMStuff.hideTaskModal()
+        DOMStuff.displayProject(project)
+    })
+    DOMStuff.TASK_MODAL_CANCEL_BUTTON.addEventListener('click',(e)=>{
+        e.preventDefault()
+        DOMStuff.hideTaskModal()
+    })
+
+    DOMStuff.ADD_PROJECT_BUTTON.addEventListener('click',(e)=>{
+        DOMStuff.displayProjectModal()
+    })
+
+    DOMStuff.PROEJCT_MODAL_SUBMIT_BUTTON.addEventListener('click',(e)=>{
+        e.preventDefault()
+        let projectDetails = DOMStuff.getProjectFormDetails()
+        let project = createProject(
+            projectDetails.title,
+            projectDetails.description
+        )
+        DOMStuff.hideProjectModal()
+        DOMStuff.displayProject(project)
+    })
+
+    DOMStuff.PROJECT_MODAL_CANCEL_BUTTON.addEventListener('click',(e)=>{
+        e.preventDefault()
+        DOMStuff.hideProjectModal()
+    })
+
+
+
+    
+    let defaultProject = createProject(
+        'Default Project ✌️',
+        'A home for your on the go tasks.╰(*°▽°*)╯'
+    )
+    DOMStuff.displayProject(defaultProject)
+}
+
+initializaApp()

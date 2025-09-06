@@ -1,31 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do App - Barebones</title>
-    <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+  </head>
+  <body>
     <!-- Sidebar for Projects -->
     <aside class="sidebar">
-        <ul class="project-list">
-            <li>Today</li>
-            <li>This week</li>
+      <div>
+        <ul>
+          <li>Today</li>
+          <li>This week</li>
         </ul>
-        <h1 style="margin-top: 1.5rem; font-size: 1.25rem;">Projects</h1>
+        <h1 style="margin-top: 1.5rem; font-size: 1.25rem">Projects</h1>
         <ul class="project-list">
-            <li class="active">Website Redesign</li>
-            <li>Marketing Campaign</li>
-            <li>Q4 Report</li>
         </ul>
+      </div>
+      <button class="add-btn add-project-btn">+ Add Project</button>
     </aside>
 
     <!-- Main Content for Tasks -->
-    <main class="main-content">
+    <div class="main">
+      <div class="main-content">
+      </div>
+      <button class="add-btn add-task-btn">+ Add Task</button>
     </main>
 
-</body>
+    <div id="modal-container">
+      <div class="modal-overlay">
+        <div class="modal-content">
+          <h3>Add New Task</h3>
+          <form>
+            <div class="form-group">
+              <label for="task-title">Title</label>
+              <input
+                type="text"
+                id="task-title"
+                name="task-title"
+                placeholder="e.g., Finalize the design mockups"
+              />
+            </div>
+            <div class="form-group">
+              <label for="task-description">Description</label>
+              <textarea
+                id="task-description"
+                name="task-description"
+                rows="3"
+                placeholder="Add more details..."
+              ></textarea>
+            </div>
+            <div class="form-group">
+              <label for="task-due-date">Due Date</label>
+              <input type="date" id="task-due-date" name="task-due-date" />
+            </div>
+            <div class="form-group">
+              <label for="cars">Choose a Project:</label>
+              <select name="project" id="projectList"></select>
+            </div>
+            <div class="form-group">
+              <label>Priority: </label>
+              <select name="priority" id="task-priority">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+            </div>
+            <div class="form-actions">
+              <button id="task-btn-cancel" class="btn-cancel">Cancel</button>
+              <button id="task-btn-submit" class="btn-submit">Add Task</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div id="add-project-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Add New Project</h3>
+            <form>
+                <div class="form-group">
+                    <label for="project-title">Project Title</label>
+                    <input type="text" id="project-title" name="project-title" placeholder="e.g., New Marketing Campaign">
+                </div>
+                <div class="form-group">
+                    <label for="project-description-input">Description</label>
+                    <input type="text" id="project-description" name="project-description-input" rows="3" placeholder="Add a short project description..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button id="project-btn-cancel" class="btn-cancel">Cancel</button>
+                    <button id="project-btn-submit" class="btn-submit">Add Project</button>
+                </div>
+            </form>
+        </div>
+    </div>
+  </body>
 </html>
-

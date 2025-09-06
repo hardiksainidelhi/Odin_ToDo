@@ -1,10 +1,6 @@
 import {Task} from './task.js'
 export class Project {
 
-    static sortTasks(taskList){
-        
-    }
-
     static PROJECT_LIST = []
 
     static getProjectById(projectId){
@@ -20,7 +16,7 @@ export class Project {
         Project.PROJECT_LIST.push(this)
     }
 
-    addtask(task){
+    addTask(task){
         this.tasks.push(task)
     }
 
